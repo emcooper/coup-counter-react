@@ -1,21 +1,23 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Menu } from 'antd';
+import '../index.css';
+
+
 
 const MainLayout = () => {
     return (
-      <div className="app">
-        <header className="primary-header"></header>
-        <aside className="primary-aside">
-          <ul>
-            <li><Link to="/" activeClassName="active">Home</Link></li>
-            <li><Link to="/users" activeClassName="active">Users</Link></li>
-            <li><Link to="/widgets" activeClassName="active">Widgets</Link></li>
-          </ul>
-        </aside>
-        <main>
-        </main>
-      </div>
+          <Menu
+            theme="light"
+            mode="horizontal"
+            defaultSelectedKeys={['2']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">Coup Counter</Menu.Item>
+            <Menu.Item key="2">nav 2</Menu.Item>
+            <Menu.Item key="3">nav 3</Menu.Item>
+          </Menu>
+
     );
   };
 
