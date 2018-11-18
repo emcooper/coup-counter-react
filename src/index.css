@@ -19,3 +19,29 @@ button {
   margin:20px;
 
 }
+
+h1, h2 {
+  text-align: center
+}
+
+span {
+  font-size: 20px;
+  margin: 4px;
+}
+
+.checkbox-container {
+  margin-top: 50px;
+  margin-left: 70px;
+}
+
+/* .ant-menu {
+  margin-bottom: 40px;
+} */
+
+.content {
+  margin: 50px
+}
+
+.ant-steps {
+  margin-bottom: 30px;
+}

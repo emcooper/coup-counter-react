@@ -10,8 +10,10 @@ export default (
     <Router>
         <div>
             <MainLayout />
+            <div class ="content">
             <Route path="/" component={SelectGame}>
             </Route>
+            </div>
         </div>
     </Router>
 
