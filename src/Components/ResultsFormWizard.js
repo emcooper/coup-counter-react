@@ -11,7 +11,7 @@ class ResultsFormWizard extends React.Component {
     state = {
         currentStep: 1, 
         game: null,
-        gamePlayers: []
+        results: []
     }
 
     constructor(){
@@ -21,8 +21,22 @@ class ResultsFormWizard extends React.Component {
 
     _next(data) {
 
-        if (currentStep == 1){
-            this.setState({gamePlayers: data['selectedPlayers']})
+        if (this.state.currentStep == 1){
+            let formattedResults = data['selectedPlayers'].map(player =>{
+                player['playerId'] = player['id']
+                delete player['id']
+                return player
+            })
+            this.setState({results: formattedResults})
+        } else if (this.state.currentStep == 2) {
+            let resultsWithWinner = this.state.results.map(result => {
+                if (result['playerId'] == data['winnerId']){
+                    result['winner'] = true
+                } else {
+                    result['winner'] = false
+                }
+            })
+            this.setState({results: resultsWithWinner})
         }
 
         let currentStep = this.state.currentStep;
@@ -41,16 +55,16 @@ class ResultsFormWizard extends React.Component {
     render() {
 
     let currentStep = this.state.currentStep;
+    let results = this.state.results;
     return(
-
         <div>
         <Steps current={this.state.currentStep-1}>
             <Step title="Select Players"  />
-            <Step title="In Progress"  />
-            <Step title="Waiting"  />
+            <Step title="Select Winner"  />
+            <Step title="Enter Game Data"  />
         </Steps>
             <Step1 currentStep={currentStep} afterValid={this._next} />
-            <Step2 currentStep={currentStep} afterValid={this._next} />
+            <Step2 currentStep={currentStep} gamePlayers ={results} afterValid={this._next} />
             {/* <Step3 currentStep={currentStep} afterValid={this._next} /> */}
         </div>
     );

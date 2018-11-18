@@ -46,7 +46,7 @@ class Step1 extends React.Component {
             <Col span={10}></Col>
             <Col span={4}>
                 <h1>Select Players</h1>
-                <div class="checkbox-container">{playerCheckboxes}</div>
+                <div class="form-container">{playerCheckboxes}</div>
                 <Button onClick={()=> this.validate()} size={"large"}  block > Next </Button>
             </Col>
             <Col span={10}></Col>
