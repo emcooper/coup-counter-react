@@ -2,6 +2,7 @@ import React from 'react';
 import '../index.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
+import Step3Coup from './Step3Coup';
 
 import { Steps, } from 'antd';
 
@@ -35,8 +36,21 @@ class ResultsFormWizard extends React.Component {
                 } else {
                     result['winner'] = false
                 }
+                return result
             })
             this.setState({results: resultsWithWinner})
+        } else if (this.state.currentStep == 3){
+            let resultsWithGameData = this.state.results.map(result => {
+                if (result['winner'] == true){
+                    result['winning_card_one'] = data['winningCards'][0]
+                    result['winning_card_two'] = data['winningCards'].length == 2 ? data['winningCards'][1] : null 
+                } else {
+                    result['winning_card_one'] = null
+                    result['winning_card_two'] = null 
+                }
+                return result
+            })
+            this.setState({results: resultsWithGameData})
         }
 
         let currentStep = this.state.currentStep;
@@ -65,7 +79,7 @@ class ResultsFormWizard extends React.Component {
         </Steps>
             <Step1 currentStep={currentStep} afterValid={this._next} />
             <Step2 currentStep={currentStep} gamePlayers ={results} afterValid={this._next} />
-            {/* <Step3 currentStep={currentStep} afterValid={this._next} /> */}
+            <Step3Coup currentStep={currentStep} afterValid={this._next} />
         </div>
     );
     }

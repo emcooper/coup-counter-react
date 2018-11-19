@@ -2,13 +2,13 @@ import React from 'react';
 import '../index.css';
 import { Checkbox, Row, Button, Col, Radio, Input  } from 'antd';
 import axios from 'axios';
-import {baseUrl} from '../index.js';
+import {baseUrl} from '..';
 
 const RadioGroup = Radio.Group;
 
-class Step2 extends React.Component {
+class Step3Coup extends React.Component {
     state = {
-        winnerId: null
+       winningCards: []
     }
 
     constructor(props) {
@@ -18,17 +18,17 @@ class Step2 extends React.Component {
 
     validate() {
         this.props.afterValid(this.state)
-      }
+    }
 
-      onChange = (e) => {
-        this.setState({
-            winnerId: e.target.value,
-        });
-      }
+    onChange(card) {
+        this.setState(prevState => ({
+            winningCards: [...prevState.winningCards, card]
+        }))
+    }
 
 
     render(){
-        if (this.props.currentStep !== 2) {
+        if (this.props.currentStep !== 3) {
             return null;
           }
 
@@ -38,19 +38,20 @@ class Step2 extends React.Component {
             lineHeight: '30px',
         };
         
-        const playerRadios = this.props.gamePlayers.map(player =>{
-            return <Radio style={radioStyle} value={player['playerId']}>{player['name']}</Radio>
+        const cards = ['Duke', 'Contessa', 'Assassin', 'Captain', 'Ambassador']
+
+        const cardCheckboxes = cards.map(card =>{
+            return <div><Checkbox onChange={()=> this.onChange(card)}>{card}</Checkbox><br></br></div>
         });
 
         return (
             <Row gutter={16}>
             <Col span={10}></Col>
             <Col span={4}>
-                <h1>Select Winner</h1>
+                <h1>Enter Game Data</h1>
                 <div class="form-container">
-                    <RadioGroup onChange={this.onChange} value={this.state.winnerId}>
-                        {playerRadios}
-                    </RadioGroup>
+                    <h3>What were the winning cards?</h3>
+                    {cardCheckboxes}
                 </div>
                 <Button onClick={()=> this.validate()} size={"large"}  block > Next </Button>
             </Col>
@@ -60,4 +61,4 @@ class Step2 extends React.Component {
     }
 }
 
-export default Step2;
+export default Step3Coup;
