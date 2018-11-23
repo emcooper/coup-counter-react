@@ -3,6 +3,8 @@ import '../index.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3Coup from './Step3Coup';
+import axios from 'axios';
+import {baseUrl} from '../index.js';
 
 import { Steps, } from 'antd';
 
@@ -15,8 +17,8 @@ class ResultsFormWizard extends React.Component {
         results: []
     }
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this._next = this._next.bind(this)
     }
 
@@ -24,14 +26,14 @@ class ResultsFormWizard extends React.Component {
 
         if (this.state.currentStep == 1){
             let formattedResults = data['selectedPlayers'].map(player =>{
-                player['playerId'] = player['id']
+                player['player_id'] = player['id']
                 delete player['id']
                 return player
             })
             this.setState({results: formattedResults})
         } else if (this.state.currentStep == 2) {
             let resultsWithWinner = this.state.results.map(result => {
-                if (result['playerId'] == data['winnerId']){
+                if (result['player_id'] == data['winnerId']){
                     result['winner'] = true
                 } else {
                     result['winner'] = false
@@ -48,9 +50,21 @@ class ResultsFormWizard extends React.Component {
                     result['winning_card_one'] = null
                     result['winning_card_two'] = null 
                 }
+                delete result['name']
                 return result
             })
             this.setState({results: resultsWithGameData})
+            let results = []
+            results["results"] = resultsWithGameData
+
+            console.log(results)
+
+            axios.post(baseUrl + 'games/coup', {
+                results
+            })
+            .then(res => {
+                console.log("response:" + res);
+            })
         }
 
         let currentStep = this.state.currentStep;

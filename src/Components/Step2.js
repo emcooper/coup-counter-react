@@ -39,7 +39,7 @@ class Step2 extends React.Component {
         };
         
         const playerRadios = this.props.gamePlayers.map(player =>{
-            return <Radio style={radioStyle} value={player['playerId']}>{player['name']}</Radio>
+            return <Radio style={radioStyle} value={player['player_id']}>{player['name']}</Radio>
         });
 
         return (

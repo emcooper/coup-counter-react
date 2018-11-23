@@ -30,7 +30,7 @@ class SelectGame extends React.Component {
     render() {
         if(this.state.selectedGame != null){
             return (
-                <ResultsFormWizard></ResultsFormWizard>
+                <ResultsFormWizard game={this.state.selectedGame}></ResultsFormWizard>
             );
         }
 
