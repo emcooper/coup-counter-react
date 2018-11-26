@@ -54,14 +54,8 @@ class ResultsFormWizard extends React.Component {
                 return result
             })
             this.setState({results: resultsWithGameData})
-            let results = []
-            results["results"] = resultsWithGameData
 
-            console.log(results)
-
-            axios.post(baseUrl + 'games/coup', {
-                results
-            })
+            axios.post(baseUrl + 'games/coup', {"results": resultsWithGameData})
             .then(res => {
                 console.log("response:" + res);
             })
