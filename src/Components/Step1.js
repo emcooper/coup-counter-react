@@ -11,6 +11,7 @@ class Step1 extends React.Component {
 
     constructor(props) {
         super(props);
+        this.onChange = this.onChange.bind(this)
     }
 
     componentDidMount() {
@@ -22,13 +23,21 @@ class Step1 extends React.Component {
     }
 
     validate() {
+        console.log(this.state.selectedPlayers.length)
         this.props.afterValid(this.state)
       }
 
-    onChange(player){
-        this.setState(prevState => ({
-            selectedPlayers: [...prevState.selectedPlayers, player]
-        }))
+    onChange(e){
+        let player = e.target.value;
+        let checked = e.target.checked;
+        if (checked){
+            this.setState(prevState => ({
+                selectedPlayers: [...prevState.selectedPlayers, player]
+            }))
+        } else {
+            let newSelectedPlayers = this.state.selectedPlayers.filter( selectedPlayer => selectedPlayer['id'] != player['id'])
+            this.setState({selectedPlayers: newSelectedPlayers})
+        }
     }
 
 
@@ -37,7 +46,7 @@ class Step1 extends React.Component {
             return null;
           }
         const playerCheckboxes = this.state.players.map(player =>{
-            return <div><Checkbox onChange={()=> this.onChange(player)}>{player['name']}</Checkbox><br></br></div>
+            return <div><Checkbox onChange={this.onChange} value={player}>{player['name']}</Checkbox><br></br></div>
         });
 
         return (

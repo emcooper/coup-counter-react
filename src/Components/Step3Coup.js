@@ -12,6 +12,7 @@ class Step3Coup extends React.Component {
 
     constructor(props) {
         super(props);
+        this.onChange = this.onChange.bind(this)
     }
 
 
@@ -19,10 +20,18 @@ class Step3Coup extends React.Component {
         this.props.afterValid(this.state)
     }
 
-    onChange(card) {
-        this.setState(prevState => ({
-            winningCards: [...prevState.winningCards, card]
-        }))
+    onChange(e) {
+        let card = e.target.value;
+        let checked = e.target.checked;
+
+        if (checked){
+            this.setState(prevState => ({
+                winningCards: [...prevState.winningCards, card]
+            }))
+        } else {
+            let newWinningCards = this.state.winningCards.filter( winningCard => winningCard != card)
+            this.setState({winningCards: newWinningCards})
+        }
     }
 
 
@@ -40,7 +49,7 @@ class Step3Coup extends React.Component {
         const cards = ['Duke', 'Contessa', 'Assassin', 'Captain', 'Ambassador']
 
         const cardCheckboxes = cards.map(card =>{
-            return <div><Checkbox onChange={()=> this.onChange(card)}>{card}</Checkbox><br></br></div>
+            return <div><Checkbox onChange={this.onChange} value={card}>{card}</Checkbox><br></br></div>
         });
 
         return (
