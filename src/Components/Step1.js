@@ -2,7 +2,6 @@ import React from 'react';
 import '../index.css';
 import { Checkbox, Row, Button, Col } from 'antd';
 import axios from 'axios';
-import {baseUrl} from '../index.js';
 
 class Step1 extends React.Component {
     state = {
@@ -15,7 +14,7 @@ class Step1 extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(baseUrl + 'players')
+        axios.get(process.env.REACT_APP_BASE_API_URL + 'players')
         .then(res => {
             const players = res.data;
             this.setState({players});

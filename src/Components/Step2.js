@@ -1,8 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { Checkbox, Row, Button, Col, Radio, Input  } from 'antd';
-import axios from 'axios';
-import {baseUrl} from '../index.js';
+
 
 const RadioGroup = Radio.Group;
 

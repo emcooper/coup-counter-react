@@ -3,7 +3,6 @@ import React from 'react';
 import { Card, Row, Button, Col } from 'antd';
 import '../index.css';
 import axios from 'axios';
-import {baseUrl} from '../index.js';
 import ResultsFormWizard from './ResultsFormWizard';
 
 const { Meta } = Card;
@@ -20,7 +19,7 @@ class SelectGame extends React.Component {
     }
     
     componentDidMount() {
-        axios.get(baseUrl)
+        axios.get(process.env.REACT_APP_BASE_API_URL)
         .then(res => {
             const games = res.data;
             this.setState({games});
@@ -34,7 +33,7 @@ class SelectGame extends React.Component {
             );
         }
 
-        const gameButtons = this.state.games.map(game => {
+        const gameButtons = this.state.games && this.state.games.map(game => {
             return <Button onClick={ ()=> this.handClick(game['name'])} size={"large"}  block >{game['name']}</Button>
         });
 

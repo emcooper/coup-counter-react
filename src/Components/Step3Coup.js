@@ -1,8 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { Checkbox, Row, Button, Col, Radio, Input  } from 'antd';
-import axios from 'axios';
-import {baseUrl} from '..';
+
 
 const RadioGroup = Radio.Group;
 
@@ -53,7 +52,7 @@ class Step3Coup extends React.Component {
                     <h3>What were the winning cards?</h3>
                     {cardCheckboxes}
                 </div>
-                <Button onClick={()=> this.validate()} size={"large"}  block > Next </Button>
+                <Button onClick={()=> this.validate()} size={"large"}  block > Submit </Button>
             </Col>
             <Col span={10}></Col>
         </Row>

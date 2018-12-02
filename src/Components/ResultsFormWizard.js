@@ -3,6 +3,7 @@ import '../index.css';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3Coup from './Step3Coup';
+import Step4 from './Step4';
 import axios from 'axios';
 import {baseUrl} from '../index.js';
 
@@ -55,7 +56,7 @@ class ResultsFormWizard extends React.Component {
             })
             this.setState({results: resultsWithGameData})
 
-            axios.post(baseUrl + 'games/coup', {"results": resultsWithGameData})
+            axios.post(process.env.REACT_APP_BASE_API_URL + 'games/coup', {"results": resultsWithGameData})
             .then(res => {
                 console.log("response:" + res);
             })
@@ -63,8 +64,8 @@ class ResultsFormWizard extends React.Component {
 
         let currentStep = this.state.currentStep;
 
-        if (currentStep >= 2) {
-          currentStep = 3;
+        if (currentStep >= 3) {
+          currentStep = 4;
         } else {
           currentStep = currentStep + 1;
         }
@@ -78,16 +79,19 @@ class ResultsFormWizard extends React.Component {
 
     let currentStep = this.state.currentStep;
     let results = this.state.results;
+    let game = this.props.game;
     return(
         <div>
         <Steps current={this.state.currentStep-1}>
             <Step title="Select Players"  />
             <Step title="Select Winner"  />
             <Step title="Enter Game Data"  />
+            <Step title="Done"  />
         </Steps>
             <Step1 currentStep={currentStep} afterValid={this._next} />
             <Step2 currentStep={currentStep} gamePlayers ={results} afterValid={this._next} />
             <Step3Coup currentStep={currentStep} afterValid={this._next} />
+            <Step4 currentStep={currentStep} game={game} />
         </div>
     );
     }
