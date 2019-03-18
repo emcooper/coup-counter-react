@@ -12,7 +12,6 @@ export default (
     <Router>
         <div>
             <MainLayout />
-            <div class ="content">
             <Route exact path="/" component={Home}>
             </Route>
             <Route path="/stats" component={Stats}>
@@ -20,7 +19,6 @@ export default (
             <Route path="/enter" component={SelectGame}>
             </Route>
 
-            </div>
         </div>
     </Router>
 
